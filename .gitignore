@@ -1,0 +1,18 @@
+# Do not commit runtime state, secrets or test-generated files
+.env
+.env.*
+!.env.example
+*.key
+*.pem
+*.p12
+*.pfx
+/var/
+/state/
+/.venv/
+/node_modules/
+/dist/
+/build/
+.coverage
+.pytest_cache/
+__pycache__/
+*.pyc

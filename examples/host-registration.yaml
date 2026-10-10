@@ -1,0 +1,25 @@
+# Example only; no secrets or valid live host credentials.
+# Configuration schema must be finalized before implementation.
+host: media01
+repositories:
+  homelab:
+    url: git@example.invalid:homelab/config.git
+    branch: main
+  jellyfin:
+    url: git@example.invalid:apps/jellyfin.git
+    branch: production
+stacks:
+  - id: caddy
+    repository: homelab
+    path: compose/caddy
+    compose_project: caddy
+  - id: jellyfin
+    repository: jellyfin
+    path: .
+    compose_project: jellyfin
+capabilities:
+  git_status: true
+  docker_status: false
+  docker_deploy: true
+  docker_stop: false
+  nftables_apply: false

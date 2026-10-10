@@ -1,0 +1,35 @@
+# Example of permanent model entries; never interpreted as live facts without labels.
+schema_version: 1
+devices:
+  - id: router01
+    kind: router
+    source: discovered_unmanaged
+    can_apply_runtime: false
+  - id: independent-firewall
+    kind: firewall
+    source: git_independent
+    repository: network-infrastructure
+    policy_path: policies/firewall.nft
+    can_apply_runtime: false
+  - id: imagined-switch
+    kind: switch
+    source: manual
+    can_apply_runtime: false
+groups:
+  - id: infrastructure
+    members: [router01, independent-firewall]
+annotations:
+  - from: admin01
+    to: media01
+    label: manually-declared association
+    # This is NOT a firewall rule or automatic service dependency.
+policies:
+  - owner: router01
+    source: manual
+    permanent: true
+    src: vlan:10
+    dst: vlan:20
+    protocol: tcp
+    port: 8096
+    action: deny
+    # Becomes part of current model, not only preview.
