@@ -33,6 +33,7 @@ State whether this was verified or remains unimplemented/unrun.
 ## Integration
 
 - Target `main` unless a different integration branch is documented.
-- Keep one coherent concern, use a descriptive title and Conventional Commits, and stage only relevant files.
+- Keep one coherent concern and stage only relevant files.
+- Match branch, commit and PR types: `<type>: <subject>` for commit subjects and PR titles; `<type>/<kebab-case-subject>` for branches (for example, `milestone`, `feat`, `fix`, or `docs`). Branch and PR describe the overall concern; each commit describes its individual change.
 - Confirm no secrets, generated temporary data or local environment settings are included.
 - Require explicit human review for authorization, privilege, deployment or firewall changes. Do not auto-merge.

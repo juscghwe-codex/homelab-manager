@@ -38,19 +38,20 @@ Do not silently change an architectural invariant. When a requirement is ambiguo
 ## Git contribution rules
 
 ### Branches
-- Never implement changes directly on `main` or `master`. Use the task's existing isolated branch when Codex supplies one; otherwise create a descriptive branch such as `docs/architecture-review`, `feat/agent-git-core`, or `fix/firewall-validation` before editing.
+- Never implement changes directly on `main` or `master`. Use the task's existing isolated branch when Codex supplies one; otherwise create a descriptive branch before editing. Before publishing, align its name with the PR type and subject using `<type>/<kebab-case-subject>`.
 - Use the existing isolated cloud checkout; do not create an additional Git worktree unless the user explicitly requests it. This contribution rule does not select the application's future candidate-staging implementation.
+- Branches, commit subjects and PR titles share the same type vocabulary: `milestone`, `feat`, `fix`, `docs`, `refactor`, `test`, `build`, `ci`, `perf`, `style`, and `chore`. Use `<type>: <subject>` for commit subjects and PR titles, and `<type>/<kebab-case-subject>` for branches. For example, `milestone: complete agent Git core` pairs with `milestone/complete-agent-git-core`; `fix: validate firewall rules` pairs with `fix/validate-firewall-rules`. Commit subjects describe their individual change; the branch and PR describe the overall concern. Avoid generic publishing names such as `work` or suffixes such as `-recreated`.
 - Keep one coherent concern per branch and PR. Do not combine unrelated modules or unrelated formatting/refactoring.
 - Inspect status before editing; preserve pre-existing changes and unpublished commits. Never reset or overwrite them to obtain a clean tree.
 
 ### Commits
-- Use Conventional Commits, for example `docs: clarify deployment state ownership`. Keep commits atomic and understandable.
+- Use the shared typed subject convention above (including `milestone` for milestone completion), for example `docs: clarify deployment state ownership`. Keep commits atomic and understandable.
 - Review the diff and stage only relevant, explicit paths; avoid indiscriminate staging.
 - Do not amend or rewrite existing shared history. Never force-push to protected branches.
 - Do not commit credentials, secrets, generated temporary data or local environment settings.
 
 ### Pull requests and integration
-- Target `main` unless the repository explicitly defines another integration branch. Use a descriptive title explaining the purpose.
+- Target `main` unless the repository explicitly defines another integration branch. Use `<type>: <subject>` for the PR title, matching the branch type and purpose.
 - Explain what changed and why, affected architectural contracts/public interfaces, security implications, known limitations and the relevant plan document.
 - State which checks actually ran and their outcomes; distinguish failed, skipped and unrun checks. A successful build does not establish architectural correctness.
 - Respect every affected module's `AGENTS.md`. Do not invent results or claim unverified functionality.
