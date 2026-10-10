@@ -32,8 +32,9 @@ State whether this was verified or remains unimplemented/unrun.
 
 ## Integration
 
-- Target `main` unless a different integration branch is documented.
+- Target milestone branch and plan: (current: `milestone/1-agent-git-core`; see `docs/PLANS.md`). Topic PRs target the milestone; only reviewed milestone integration PRs target `main`.
 - Keep one coherent concern and stage only relevant files.
-- Match branch, commit and PR types: `<type>: <subject>` for commit subjects and PR titles; `<type>/<kebab-case-subject>` for branches (for example, `milestone`, `feat`, `fix`, or `docs`). Branch and PR describe the overall concern; each commit describes its individual change.
+- Use `<type>/<kebab-case-subject>` for topic branches and `<type>: <subject>` for commit subjects and PR titles (`feat`, `fix`, `docs`, etc.). Reserve `milestone/<number>-<goal>` and `milestone: <subject>` for milestone integration. Branch and PR types describe the overall concern; related `fix:`, `test:`, and `docs:` commits may stay on a `feat/...` branch.
+- Reuse the existing branch/PR for the concern; no generic `work` branches or duplicate replacements. Delete merged topic branches after integration, preserving unmerged work and branches with open dependent PRs.
 - Confirm no secrets, generated temporary data or local environment settings are included.
 - Require explicit human review for authorization, privilege, deployment or firewall changes. Do not auto-merge.

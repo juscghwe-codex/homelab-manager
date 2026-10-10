@@ -38,9 +38,11 @@ Do not silently change an architectural invariant. When a requirement is ambiguo
 ## Git contribution rules
 
 ### Branches
-- Never implement changes directly on `main` or `master`. Use the task's existing isolated branch when Codex supplies one; otherwise create a descriptive branch before editing. Before publishing, align its name with the PR type and subject using `<type>/<kebab-case-subject>`.
+- Never implement changes directly on `main`, `master`, or a milestone integration branch. Create topic branches from the applicable `milestone/<number>-<kebab-case-goal>` branch; reuse an existing branch for the same concern rather than creating parallel replacements. An environment-supplied generic branch must be renamed before publishing.
 - Use the existing isolated cloud checkout; do not create an additional Git worktree unless the user explicitly requests it. This contribution rule does not select the application's future candidate-staging implementation.
-- Branches, commit subjects and PR titles share the same type vocabulary: `milestone`, `feat`, `fix`, `docs`, `refactor`, `test`, `build`, `ci`, `perf`, `style`, and `chore`. Use `<type>: <subject>` for commit subjects and PR titles, and `<type>/<kebab-case-subject>` for branches. For example, `milestone: complete agent Git core` pairs with `milestone/complete-agent-git-core`; `fix: validate firewall rules` pairs with `fix/validate-firewall-rules`. Commit subjects describe their individual change; the branch and PR describe the overall concern. Avoid generic publishing names such as `work` or suffixes such as `-recreated`.
+- Topic branch types are `feat`, `fix`, `docs`, `refactor`, `test`, `build`, `ci`, `perf`, `style`, and `chore`. Use `<type>/<kebab-case-subject>` for topic branches and `<type>: <subject>` for commit subjects and PR titles. Reserve `milestone/<number>-<kebab-case-goal>` for integration branches and `milestone: <subject>` for milestone integration PRs and their merge commits. `main` is the stable integration destination, not a topic branch.
+- Keep one integration branch per active milestone, created from `main`; do not create speculative branches for future milestones. The current integration branch is `milestone/1-agent-git-core`. For example, create `feat/agent-git-status` from it and target it with the feature PR. See [milestone integration](docs/PLANS.md#branch-and-pr-integration).
+- The branch and PR type describe the overall concern; each commit's type describes its own change. A `feat/...` branch may contain related `fix:`, `test:`, and `docs:` commits. Do not create a new branch for every supporting fix. Avoid generic names such as `work`, `temp`, or `patch`, and replacement suffixes such as `-recreated`.
 - Keep one coherent concern per branch and PR. Do not combine unrelated modules or unrelated formatting/refactoring.
 - Inspect status before editing; preserve pre-existing changes and unpublished commits. Never reset or overwrite them to obtain a clean tree.
 
@@ -51,7 +53,8 @@ Do not silently change an architectural invariant. When a requirement is ambiguo
 - Do not commit credentials, secrets, generated temporary data or local environment settings.
 
 ### Pull requests and integration
-- Target `main` unless the repository explicitly defines another integration branch. Use `<type>: <subject>` for the PR title, matching the branch type and purpose.
+- Topic PRs target their documented milestone branch, not `main` or another topic branch. Use `<type>: <subject>` for the PR title, matching the branch's overall type and purpose. Only a reviewed milestone integration PR targets `main`, with a `milestone: <subject>` title.
+- Reuse the existing PR for the concern. After integration, delete its merged topic branch; after milestone completion, delete the merged milestone branch once no open PR depends on it. Do not delete unmerged work or create duplicate replacement branches/PRs.
 - Explain what changed and why, affected architectural contracts/public interfaces, security implications, known limitations and the relevant plan document.
 - State which checks actually ran and their outcomes; distinguish failed, skipped and unrun checks. A successful build does not establish architectural correctness.
 - Respect every affected module's `AGENTS.md`. Do not invent results or claim unverified functionality.

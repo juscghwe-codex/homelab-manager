@@ -2,6 +2,18 @@
 
 Before implementing nontrivial functionality, add `docs/plans/<NNNN>-<topic>.md` with purpose, affected contracts, design, security assumptions, unit/integration tests, acceptance checks and recovery approach. Complete one vertical slice per PR. Keep open decisions explicit; avoid turning guesses into permanent architecture.
 
+## Branch and PR integration
+
+`main` receives completed, reviewed milestones. Keep one integration branch per active milestone, named `milestone/<number>-<kebab-case-goal>`, created from `main`. Create it when work on the milestone starts rather than pre-creating branches for the entire roadmap.
+
+The current integration branch is `milestone/1-agent-git-core`; it collects the architecture/readiness documentation needed by Milestone 1 as well as its implementation slices. Documentation alone does not complete the milestone or establish that any runtime behavior works.
+
+Create focused topic branches from the milestone, for example `feat/agent-git-status`, `fix/git-ancestry`, or `docs/record-maintainer-decisions-and-git-core-plan`. Their PRs target `milestone/1-agent-git-core`. Reuse a topic branch and its PR for related follow-up work, including supporting fixes and tests. Existing documentation PR #5 is the initial documentation contribution to this milestone.
+
+Branch names use `<type>/<kebab-case-subject>`; commit subjects and PR titles use `<type>: <subject>`. Topic types are `feat`, `fix`, `docs`, `refactor`, `test`, `build`, `ci`, `perf`, `style`, and `chore`. A feature PR keeps its `feat:` title even when it contains related `fix:`, `test:`, or `docs:` commits. Generic `work`/`temp`/`patch` branches and duplicate replacement branches are not part of this workflow.
+
+When the milestone's acceptance criteria are verified, open one integration PR from its milestone branch to `main`, titled for example `milestone: complete agent Git core`. Record the actual verification and remaining limitations; require human review and do not auto-merge. Use a typed subject for any merge or squash commit as well. Delete merged topic branches after integration, and the merged milestone branch after completion once no open PR depends on it. Preserve all unmerged work.
+
 ## Milestones
 
 ### 0 — Docs and contracts
